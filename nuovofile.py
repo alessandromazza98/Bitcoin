@@ -10,3 +10,5 @@ s = "ora si cambia tutto ancora"
 s = "anxora diverso"
 
 s = 2
+
+s = "bastaaaaaaaaq"
