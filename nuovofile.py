@@ -6,3 +6,5 @@ s = "ciao sono una stringa di prova"
 print(s)
 
 s = "ora si cambia tutto ancora"
+
+s = "anxora diverso"
