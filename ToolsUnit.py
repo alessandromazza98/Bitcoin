@@ -46,11 +46,19 @@ def hash256(hex_data):
 # Compute the hash160(hex_data) = ripemd160(sha256(hex_data))
 # In input takes a string hex data
 # It outputs a string hex data
-def hash160(hex_data):
+def hash160(hex_data: str):
     first_hash = sha256(bytes.fromhex(hex_data)).digest()
     ripemd160 = hashlib.new('ripemd160')
     ripemd160.update(first_hash)
     return ripemd160.hexdigest()
+
+
+# Same function but accepts and outputs bytes data
+def hash160(bytes_data: bytes):
+    first_hash = sha256(bytes_data).digest()
+    ripemd160 = hashlib.new('ripemd160')
+    ripemd160.update(first_hash)
+    return ripemd160.digest()
 
 
 # Compute varint(hex_data) = length(hex_data)
