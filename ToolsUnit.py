@@ -17,7 +17,8 @@ def calculate_pk(sk):
 
 
 # Turn pk from int to string in uncompressed form
-def turn_pk_from_int_to_uncompressed(pk_x, pk_y):
+def turn_pk_from_int_to_uncompressed(pk_int):
+    pk_x, pk_y = pk_int
     pubk_x = hex(pk_x)[2:].rjust(64, "0")  # extended in 64 characters = 32 bytes. If necessary pad w/ 0
     pubk_y = hex(pk_y)[2:].rjust(64, "0")
 
@@ -25,7 +26,8 @@ def turn_pk_from_int_to_uncompressed(pk_x, pk_y):
 
 
 # Turn pk from int to string in compressed form
-def turn_pk_from_int_to_compressed(pk_x, pk_y):
+def turn_pk_from_int_to_compressed(pk_int):
+    pk_x, pk_y = pk_int
     pubk_x = hex(pk_x)[2:].rjust(64, "0")  # extended in 64 characters = 32 bytes. If necessary pad w/ 0
 
     if pk_y % 2 == 0:
@@ -106,6 +108,3 @@ def create_output_p2pkh(address):
 # It outputs a string hex data (unlocking_script)
 def create_unlocking_script(der_sig, pk_hex):
     return calculate_varint(der_sig) + der_sig + calculate_varint(pk_hex) + pk_hex
-
-
-# Derivation of address

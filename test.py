@@ -22,7 +22,8 @@ def ser256(i: int):
 
 # Serializes the coordinate pair P = (x,y) as a byte sequence using SEC1's compressed form:
 # (0x02 or 0x03) || ser256(x), where the header byte depends on the parity of the omitted y coordinate.
-def serP(px, py):
+def serP(P):
+    px, py = P
     if py % 2 == 0:
         return b'\x02' + ser256(px)
     else:
@@ -51,7 +52,7 @@ def fingerprint(pub_key_serialized):
 # 4 bytes: child number. (0x00000000 if master key)
 # 32 bytes: the chain code
 # 33 bytes: the public key or private key data
-def ser_extended_priv_keys(k: int, chain_code: bytes, index: int, level=0, parent_pub_key=b'\x00', master_key='False',
+def ser_extended_priv_keys(k: int, chain_code: bytes, index: int, level=0, parent_ser_pub_key=b'\x00', master_key='False',
                            mainnet='True'):
     if mainnet == 'True':
         version_byte = b'\x04\x88\xAD\xE4'
@@ -61,7 +62,7 @@ def ser_extended_priv_keys(k: int, chain_code: bytes, index: int, level=0, paren
     if master_key == 'True':
         finger_print = b'\x00\x00\x00\x00'
     else:
-        finger_print = fingerprint(parent_pub_key)
+        finger_print = fingerprint(parent_ser_pub_key)
     child_number = ser32(index)
 
     key = version_byte + depth + finger_print + child_number + chain_code + b'\x00' + ser256(k)
@@ -90,7 +91,7 @@ def parse_extended_priv_key(extended_key: bytes):
 # 4 bytes: child number. (0x00000000 if master key)
 # 32 bytes: the chain code
 # 33 bytes: the public key or private key data
-def ser_extended_pub_keys(K_x: int, K_y: int, chain_code: bytes, index: int, level=0, parent_pub_key=b'\x00',
+def ser_extended_pub_keys(K_x: int, K_y: int, chain_code: bytes, index: int, level=0, parent_ser_pub_key=b'\x00',
                           master_key='False', mainnet='True'):
     if mainnet == 'True':
         version_byte = b'\x04\x88\xB2\x1E'
@@ -100,7 +101,7 @@ def ser_extended_pub_keys(K_x: int, K_y: int, chain_code: bytes, index: int, lev
     if master_key == 'True':
         finger_print = b'\x00\x00\x00\x00'
     else:
-        finger_print = fingerprint(parent_pub_key)
+        finger_print = fingerprint(parent_ser_pub_key)
     child_number = ser32(index)
 
     key = version_byte + depth + finger_print + child_number + chain_code + serP(K_x, K_y)
@@ -206,3 +207,7 @@ k_m_0h_1_2h_2, c_m_0h_1_2h_2 = CKDpriv(xpriv_m_0h_1_2h, 2)
 
 xpriv_ser_m_0h_1_2h = ser_extended_priv_keys(k_m_0h_1_2h_2, c_m_0h_1_2h_2, 2, 4, K_ser_m_0h_1_2h)
 print(xpriv_ser_m_0h_1_2h)
+
+
+### DA FARE
+# MODIFICA LE FUNZIONI CHE PRENDONO LA CHIAVE PRIVATA COME DUE INPUT E SOSTITUISCI
