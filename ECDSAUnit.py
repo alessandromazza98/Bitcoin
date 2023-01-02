@@ -36,8 +36,7 @@ def double(P):
     s = ((3 * px ** 2 + a) * inverse(2 * py)) % p
     px_double = (s ** 2 - 2 * px) % p
     py_double = (s * (px - px_double) - py) % p
-    P_new = px_double, py_double
-    return P_new
+    return px_double, py_double
 
 
 # ---
@@ -53,8 +52,7 @@ def add(P1, P2):
     s = ((p1y - p2y) * inverse(p1x - p2x)) % p
     px_add = (s ** 2 - p1x - p2x) % p
     py_add = (s * (p1x - px_add) - p1y) % p
-    P_new = px_add, py_add
-    return P_new
+    return px_add, py_add
 
 
 # --------

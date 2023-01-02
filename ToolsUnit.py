@@ -48,7 +48,7 @@ def hash256(hex_data):
 # Compute the hash160(hex_data) = ripemd160(sha256(hex_data))
 # In input takes a string hex data
 # It outputs a string hex data
-def hash160(hex_data: str):
+def hash160_hex(hex_data: str):
     first_hash = sha256(bytes.fromhex(hex_data)).digest()
     ripemd160 = hashlib.new('ripemd160')
     ripemd160.update(first_hash)
@@ -108,3 +108,36 @@ def create_output_p2pkh(address):
 # It outputs a string hex data (unlocking_script)
 def create_unlocking_script(der_sig, pk_hex):
     return calculate_varint(der_sig) + der_sig + calculate_varint(pk_hex) + pk_hex
+
+
+# Encode a signature (r, s) using DER encoding
+# Input 2 integers
+# Output a hex string
+def encode_sign_DER(r, s):
+
+    # convert r and s in hexadecimal using always 64 characters (32 bytes). Pad w/ 0 if necessary
+    r_hex = hex(r)[2:].rjust(64, "0")
+    s_hex = hex(s)[2:].rjust(64, "0")
+
+    # add a "00" in front if the first byte of r or s is >= 0x80
+    if int(r_hex[0:2], 16) >= int("80", 16):
+        r_hex = "00" + r_hex
+
+    if int(s_hex[0:2], 16) >= int("80", 16):
+        s_hex = "00" + s_hex
+
+    # calculate length of r_hex and s_hex in bytes
+    r_hex_length = hex(len(r_hex) // 2)[2:].rjust(2, "0")
+    s_hex_length = hex(len(s_hex) // 2)[2:].rjust(2, "0")
+
+    # int type = "02" in DER encoding
+    int_type = "02"
+
+    # compound object = "30" in DER encoding
+    compound_object = "30"
+
+    # total length
+    total_length = hex(2 * len(int_type) // 2 + 2 * len(r_hex_length) // 2
+                       + int(r_hex_length, 16) + int(s_hex_length, 16))[2:].rjust(2, "0")
+
+    return compound_object + total_length + int_type + r_hex_length + r_hex + int_type + s_hex_length + s_hex
