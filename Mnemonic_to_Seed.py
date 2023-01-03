@@ -1,15 +1,12 @@
-from mnemonic import Mnemonic
+import BIP39
 import ECDSAUnit
 import HDDerivation
 
-language = "english"
-nmemo = Mnemonic(language)
-
 words = "series panther mango type skin humor coach require old dash endorse salon"
 
-seed = nmemo.to_seed(words, passphrase="")
+seed = BIP39.to_seed(words, passphrase="")
 
-print(seed)
+print(seed.hex())
 
 k_master, c_master = HDDerivation.master_key_generation(seed)
 xpriv = k_master, c_master
