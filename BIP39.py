@@ -2,7 +2,7 @@ import hashlib
 
 
 # From a mnemonic generates a 512 bit seed following BIP-39
-def to_seed(words: str, passphrase=""):
+def to_seed(words: str, passphrase="") -> bytes:
     iterations = 2048
     passphrase = "mnemonic" + passphrase
 
