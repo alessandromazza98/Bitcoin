@@ -47,3 +47,5 @@ tx_signed = version + input_count + txid_reverse + vout + len_unlocking_script +
                   + amount + len_locking_script + locking_script + locktime
 
 print(tx_signed)
+
+# tx SPENT!
