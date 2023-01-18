@@ -1,44 +1,10 @@
-import ToolsUnit
+s = "03408c20a2b28f6f6861c3b8ba187ac8e86660b40f73a0fdeaba6e4c1ca153ea8f74a5f136e3215df02412edb1a337a6bcc8db833f96910e86ce14f2f31c88a65fbf2220ad45225b019532a9161bd5d2c9e103190ebea0ce724471ef033a16ae75b8e420ac61c106caee74f23f4ce3a7e9421ffbbac2c54a9c58559b887371730f1184b3822e173bebcba51b760dfea48e3012c3da43638387b0c623ef577ceb5e96ea2a5e246e5d270ddc5accffc6865dc8e7904d68d6ba2c30a69aa8ffa47d5fd236f09c644e00000000"
 
-tx = "0100000000010166f6b59a7289f9d9439d9b96b047812e261e61dfeba3c421b2d2cd14c9f076ee0100000000ffffffff0160e31600000000001600142435d239c6731ee567d0afc1ab354fc077ed538802483045022100fe34179f2bc32f4e50c92b8f69863b1b269f37034cb147b5a4c26bde998227a402207547b5ea83b23f5df6c3c0f99c406b44652c3f913fb511a4997c10e661693386012103ec8cd523f250452125005123c47460c1945f4b8662a05b90818a3761d7e104d700000000"
-
-version = tx[:8]
-marker = tx[8:10]
-flag = tx[10:12]
-input_count = tx[12:14]
-txid_reverse = tx[14:78]
-vout = tx[78:86]
-len_unlocking_script = tx[86:88]  # uguale a "00"
-unlocking_script = tx[88:int(len_unlocking_script, 16)*2+88]
-sequence = tx[88:96]
-output_count = tx[96:98]
-amount1 = tx[98:114]
-len_locking_script1 = tx[114:116]  # uguale a "16"
-locking_script1 = tx[116:116+int(len_locking_script1, 16)*2]
-witness_count = tx[160:162]
-len_witness1 = tx[162:164]
-witness1 = tx[164:164+int(len_witness1, 16)*2]
-len_witness2 = tx[164+int(len_witness1, 16)*2:164+int(len_witness1, 16)*2+2]
-witness2 = tx[164+int(len_witness1, 16)*2+2:164+int(len_witness1, 16)*2+2+int(len_witness2, 16)*2]
-locktime = tx[164+int(len_witness1, 16)*2+2+int(len_witness2, 16)*2:]
-
-print("version: " + version)
-print("marker: " + marker)
-print("flag: " + flag)
-print("input count: " + input_count)
-print("txid_reverse: " + txid_reverse)
-print("vout: " + vout)
-print("unlocking script size: " + len_unlocking_script)
-print("unlocking script: " + unlocking_script)
-print("sequence: " + sequence)
-print("output count: " + output_count)
-print("amount 1: " + amount1 )
-print("locking script 1 size: " + len_locking_script1)
-print("locking script 1: " + locking_script1)
-print("witness count: " + witness_count)
-print("witness 1 size: " + len_witness1)
-print("witness 1: " + witness1)
-print("witness 2 size: " + len_witness2)
-print("witness 2: " + witness2)
-print("locktime: " + locktime)
-
+print(s[0:2])
+print(s[2:4])
+print(s[4:132])
+print(s[132:134])
+print(s[134:202])
+print(s[202:204])
+print(s[204:398])
+print(s[398:])

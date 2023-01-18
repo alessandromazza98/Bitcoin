@@ -1,4 +1,4 @@
-import bech32
+import Bech32
 import ToolsUnit
 
 
@@ -13,7 +13,7 @@ def encode_addr_bech32(wit_program, mainnet="True"):
 
     wit_version = 0
 
-    return bech32.encode(hrp, wit_version, wit_program)
+    return Bech32.encode(hrp, wit_version, wit_program)
 
 
 # Decode an address beh32 (native segwit)
@@ -25,11 +25,11 @@ def decode_addr_bech32(addr, mainnet="True"):
     else:
         hrp = "tb"
 
-    wit_version, wit_program_int = bech32.decode(hrp, addr)
+    wit_version, wit_program_int = Bech32.decode(hrp, addr)
 
     wit_program = ""
     for i in wit_program_int:
-        wit_program += hex(i)[2:]
+        wit_program += hex(i)[2:].rjust(2, "0")
 
     return wit_version, wit_program
 

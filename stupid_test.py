@@ -1,6 +1,4 @@
-import ToolsUnit
-
-tx = "02000000000101ec8bcacceaedf0cce46a1d5c1d74a2b034c65e291c53b80b424040fef4f6c7920100000000feffffff0211f802aa00000000160014863436c49c3de9aabdb25fd9b5649927b332a3d379b91700000000001600142435d239c6731ee567d0afc1ab354fc077ed53880247304402201096c2ea2a3edcd0114a5081a153354337dadc97cce2e24742c882c074c1e77402201de46b48de73fe57c4e020fbccfa77a679db3efcf4ee7ae60edb656784b54010012103b30d1544bbedffeafae045cec73deaf75a7919718d31c4dbd063104016e030fc47da2400"
+tx = "010000000001015874fdb935b94bf793fcb13d331f5113e36172fc0085732c5c1d70d8588016230000000000ffffffff01301b0f0000000000225120b009a0501fbe6496e10c657cd04d75d1e6017ceaeee9600a3eae74d684dff9920140b1688dea05bfa7d75ddf94f6de12aee0931ecc6f530f6c659c67e23a66961330b330a6d6a760865d950523335125120fc26227023c2692f8e04ea84548e56d0600000000"
 
 version = tx[:8]
 marker = tx[8:10]
@@ -15,15 +13,10 @@ output_count = tx[96:98]
 amount1 = tx[98:114]
 len_locking_script1 = tx[114:116]  # uguale a "16"
 locking_script1 = tx[116:116+int(len_locking_script1, 16)*2]
-amount2 = tx[160:176]
-len_locking_script2 = tx[176:178]  # uguale a "16"
-locking_script2 = tx[178:178+int(len_locking_script2, 16)*2]
-witness_count = tx[222:224]
-len_witness1 = tx[224:226]
-witness1 = tx[226:226+int(len_witness1, 16)*2]
-len_witness2 = tx[368:370]
-witness2 = tx[370:370+int(len_witness2, 16)*2]
-locktime = tx[370+int(len_witness2, 16)*2:]
+witness_count = tx[116+int(len_locking_script1, 16)*2:116+int(len_locking_script1, 16)*2+2]
+len_witness1 = tx[116+int(len_locking_script1, 16)*2+2:116+int(len_locking_script1, 16)*2+2+2]
+witness1 = tx[116+int(len_locking_script1, 16)*2+2+2:116+int(len_locking_script1, 16)*2+2+2+int(len_witness1, 16)*2]
+locktime = tx[-8:]
 
 print("version: " + version)
 print("marker: " + marker)
@@ -38,20 +31,9 @@ print("output count: " + output_count)
 print("amount 1: " + amount1 )
 print("locking script 1 size: " + len_locking_script1)
 print("locking script 1: " + locking_script1)
-print("amount 2: " + amount2)
-print("locking script 2 size: " + len_locking_script2)
-print("locking script 2: " + locking_script2)
 print("witness count: " + witness_count)
 print("witness 1 size: " + len_witness1)
 print("witness 1: " + witness1)
-print("witness 2 size: " + len_witness2)
-print("witness 2: " + witness2)
 print("locktime: " + locktime)
 
-print("\n------------------------------\n")
-
-print(witness1)
-print(witness1[:int("47",16)*2])
-
-test = "87b16bf5c5e43bf1dbd69440556f4f5a1430b5fd87"
-print(ToolsUnit.calculate_varint(test))
+# 5120b009a0501fbe6496e10c657cd04d75d1e6017ceaeee9600a3eae74d684dff992
